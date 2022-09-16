@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<h3><center>Slot Booking</center></h3>
+<br><br>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="inputGroup-sizing-default">Aadhar Card Number</span>
+    </div>
+    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+  </div>
+  <br>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="inputGroupSelect01">Options</label>
+    </div>
+    <select class="custom-select" id="inputGroupSelect01">
+      <option selected>Slot Timing</option>
+      <option value="1">9:00-10:00</option>
+      <option value="2">9:00-10:00</option>
+      <option value="3">9:00-10:00</option>
+    </select>
+  </div>
+{% endblock body %}

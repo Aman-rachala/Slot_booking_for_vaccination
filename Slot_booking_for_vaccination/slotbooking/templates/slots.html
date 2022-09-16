@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<h3><center>Slot Booking in {{hname}} Hospital</center></h3>
+<br><br>
+<div class="container">
+  <form action="success" method="post">
+    {% csrf_token %}
+    <div class = "col-10">
+    <div class="input-group mb-4">
+      
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-default">Aadhar Card Number</span>
+        </div>
+        <input type="number" name="aadhar" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+      </div>
+    </div>
+    <div class = "col-10">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
+      </div>
+      <input type="email" name="emaill" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+    </div>
+    </div>
+      <div class = "col-10">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">Slots</label>
+        </div>
+        <select class="custom-select" id="inputGroupSelect01" name = "inputGroupSelect01">
+          <option selected>Slot Timing</option>
+          <option value="9:00-10:00" >9:00-10:00</option>
+          <option value="10:00-11:00">10:00-11:00</option>
+          <option value="11:00-12:00">11:00-12:00</option>
+        </select>
+        <input type="submit" value="Book Slot" class="btn btn-primary btn-lg " role="button" aria-disabled="true" onclick="disp()">
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock body %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="login-form">
+    <form action="/save" method="post">
+        {% csrf_token %}
+        <h2 class="text-center">Hospital Sign in</h2>       
+        <div class="form-group">
+            <label for = "name">Hospital Name</label>
+            <input type="text" name = "hname" class="form-control" placeholder="Hospital Name">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" name = "email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Slots</label>
+            <input type="number" name = "slots" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Slots">
+        </div>
+        <div class="form-group">
+            <label for="exampleInput">Address</label>
+            <input type="text" name = "addr" class="form-control" placeholder="Address">
+        </div>
+                
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </div>     
+    </form>
+    
+</div>
+{% endblock body %}

@@ -1,0 +1,289 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="shortcut icon" href="tabiconcircle.png">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta name="theme-color" content="#000000">
+        <link rel="manifest" href="/manifest.json">
+        <title>Vaccination Slot Booking</title>
+        <script
+            src="https://apis.google.com/_/scs/abc-static/_/js/k=gapi.lb.en.z9QjrzsHcOc.O/m=auth2,client/rt=j/sv=1/d=1/ed=1/rs=AHpOoo8359JQqZQ0dzCVJ5Ui3CZcERHEWA/cb=gapi.loaded_0?le=scs"
+            async=""></script>
+        <script id="googleApi" src="https://apis.google.com/js/api.js" gapi_processed="true"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="/static/css/2.aa984b09.chunk.css" rel="stylesheet">
+        <link href="/static/css/main.7f1506f9.chunk.css" rel="stylesheet">
+        <style>
+            .DefaultStarComponent {
+                transition: color 0.2s;
+                color: #e4e4e4;
+            }
+    
+            .DefaultStarComponent.selected {
+                color: gold;
+            }
+    
+            .DefaultStarComponent.addSelection {
+                color: #e9e1b6;
+            }
+    
+            .DefaultStarComponent.removeSelection {
+                color: #eede88;
+            }
+        </style>
+        <style>
+            .StarPickerButtonContent {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+    
+            .StarPickerButtonContent.halfStars {
+                width: var(--star-size);
+            }
+        </style>
+        <style>
+            .StarPickerButton {
+                margin: 0;
+                padding: 0;
+                cursor: pointer;
+                border: none;
+                background: transparent;
+                line-height: 100%;
+    
+                width: var(--star-size);
+                font-size: var(--star-size);
+            }
+    
+            .StarPickerButton.disabled {
+                cursor: not-allowed;
+            }
+    
+            .StarPickerButton.halfStars {
+                overflow: hidden;
+                direction: ltr;
+    
+                width: calc(var(--star-size) / 2);
+            }
+    
+            .StarPickerButton.halfStars:nth-child(even) {
+                direction: rtl;
+            }
+            .login-form {
+                width: 500px;
+                margin: 50px auto;
+                  font-size: 15px;
+            }
+            .login-form form {
+                margin-bottom: 15px;
+                background: #f7f7f7;
+                box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+                padding: 30px;
+            }
+            .login-form h2 {
+                margin: 0 0 15px;
+            }
+            .form-control, .btn {
+                min-height: 38px;
+                border-radius: 2px;
+            }
+            .btn {        
+                font-size: 15px;
+                font-weight: bold;
+            } 
+    .btn-group button {
+  background-color: #047baa; 
+  border: 1px solid rgb(2, 0, 128); 
+  color: white; 
+  padding: 10px 24px; 
+  cursor: pointer; 
+  float: left; 
+}
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.btn-group button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+  background-color: #0cd0e6;
+}
+
+        </style>        
+    </head>
+    <body>
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <div id="root">
+            <div>
+                <nav class="navbar navbar-dark bg-dark navbar-expand-lg
+                pl-4 pr-4 w-100 " style="background-color: rgb(26, 26, 26);font-family: Garamond, serif;"><a style="" class="navbar-brand" href={% url 'home' %}><img
+                            src="data:image/jpeg;base64,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" alt="" width="40" height="24" class="d-inline-block align-top
+                        mr-2 mt-1">QuikHealth</a><button class="navbar-toggler" type="button"
+                        data-toggle="collapse" data-target="#collapsibleNavbar"><span
+                            class="navbar-toggler-icon"></span></button>
+                    {% if request.user.is_authenticated %}
+                        <div class="collapse navbar-collapse " id="collapsibleNavbar">
+                            <ul class="navbar-nav ml-auto text-light bg-dark">
+                                <li class="navbar-item" style="text-align: right;padding-left: 900px;">
+                                    <link to="/" class="nav-link " style="padding: 0px;">                                    
+                                        <a class="btn btn-outline-primary" href={% url 'logout' %}>Logout</a>
+                                </li>
+                            </ul>
+                        </div>  
+                        <div class="collapse navbar-collapse " id="collapsibleNavbar">
+                            <ul class="navbar-nav ml-auto text-light bg-dark">
+                                <li class="navbar-item" style="text-align: right;padding-left: 0px;">
+                                    <link to="/" class="nav-link " style="padding: 0px;">                                    
+                                        <a class="btn btn-outline-primary" href={% url 'slotbooking' %}>Slotbooking</a>
+                                </li>
+                            </ul>
+                        </div>                  
+                    {% else %}
+                        <div class="collapse navbar-collapse " id="collapsibleNavbar">
+                            <ul class="navbar-nav ml-auto text-light bg-dark">
+                                <li class="navbar-item" style="text-align: right;padding-left: 1000px;">
+                                    <link to="/" class="nav-link " style="padding: 0px;">                                    
+                                        <a class="btn btn-outline-primary" href={% url 'signup' %}>Sign up</a>
+                                </li>
+                            </ul>
+                        </div>
+                    {% endif %}
+                    <div class="collapse navbar-collapse " id="collapsibleNavbar">
+                        <ul class="navbar-nav ml-auto text-light bg-dark">
+                            <li class="navbar-item" style="text-align: right;">
+                                <link to="/" class="nav-link " style="padding: 0px;">                                
+                                    <a class="btn btn-outline-primary" href={% url 'hsign' %}>Request Hospital</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        <strong>{{ message }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                
+                <div class="my-5 container-fluid">
+                    <div class="carousel slide">
+                        <ol class="carousel-indicators">
+
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="active
+                            carousel-item"><img class="d-block w-75 mx-auto"
+                                    src="https://static.vecteezy.com/system/resources/previews/002/805/112/non_2x/online-doctor-remote-treatment-illustration-concept-free-vector.jpg"
+                                    height="500" width="400" alt="First slide"></div>
+                </div>
+                {% block body %}{% endblock body %}
+                
+                <div class="footer bg-dark text-white px-3 pt-3 container-fluid">
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <address>
+                                <h3><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512"
+                                        height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                        
+                                    </svg></h3>
+                                <h4>Address</h4>
+                                <p>
+                                    <a href="https://goo.gl/maps/4Hy3wjEyQZRbYMm26" target="_blank">Hyderabad ,Telangana</a>
+                                </p>
+                            </address>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <h3><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512"
+                                    height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                    
+                                </svg></h3>
+                            <h4>Contact Us</h4>
+                            <p><a href="mailto:getvaccinated9@gmail.com" target="_blank"><svg stroke="currentColor"
+                                        fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        
+                                    </svg>&nbsp;
+                                    getvaccinated9@gmail.com</a><br><a href="tel:+919307531964" target="_blank"><svg
+                                        stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512"
+                                        height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">                                    
+                                    </svg>&nbsp;
+                                    </a></p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <h3><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512"
+                                    height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                    
+                                </svg></h3>
+                            <h4>Team</h4>
+                            <div class="row text-center">
+                                <div class="col-6
+                                text-center">
+                                    <p class="text-center"><svg
+                                                stroke="currentColor" fill="currentColor" stroke-width="0"
+                                                viewBox="0 0 496 512" height="1em" width="1em"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                
+                                            </svg>&nbsp;
+                                            Aadarsh Pokala</a><br>
+                                            <svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                                viewBox="0 0 496 512" height="1em" width="1em"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                
+                                            </svg>&nbsp;Aman Rachala</p>
+                                </div>
+                                <div class="col-6
+                                text-center">
+                                    <p class="text-center"><svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                                viewBox="0 0 448 512" height="1em" width="1em"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                
+                                            </svg>&nbsp;
+                                            Dhanush Burra<br><svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                                viewBox="0 0 448 512" height="1em" width="1em"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                
+                                            </svg>&nbsp;
+                                            Adarsh Akula Kumar</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2 py-2" style="background-color: rgb(36, 43,
+                    46);">
+                        
+                    </div>
+                </div>
+            </div>
+            {% comment %} {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %} {% endcomment %}
+            
+        </div>
+        <script>!function (e) { function r(r) { for (var n, f, l = r[0], i = r[1], a = r[2], c = 0, s = []; c < l.length; c++)f = l[c], Object.prototype.hasOwnProperty.call(o, f) && o[f] && s.push(o[f][0]), o[f] = 0; for (n in i) Object.prototype.hasOwnProperty.call(i, n) && (e[n] = i[n]); for (p && p(r); s.length;)s.shift()(); return u.push.apply(u, a || []), t() } function t() { for (var e, r = 0; r < u.length; r++) { for (var t = u[r], n = !0, l = 1; l < t.length; l++) { var i = t[l]; 0 !== o[i] && (n = !1) } n && (u.splice(r--, 1), e = f(f.s = t[0])) } return e } var n = {}, o = { 1: 0 }, u = []; function f(r) { if (n[r]) return n[r].exports; var t = n[r] = { i: r, l: !1, exports: {} }; return e[r].call(t.exports, t, t.exports, f), t.l = !0, t.exports } f.m = e, f.c = n, f.d = function (e, r, t) { f.o(e, r) || Object.defineProperty(e, r, { enumerable: !0, get: t }) }, f.r = function (e) { "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, { value: "Module" }), Object.defineProperty(e, "__esModule", { value: !0 }) }, f.t = function (e, r) { if (1 & r && (e = f(e)), 8 & r) return e; if (4 & r && "object" == typeof e && e && e.__esModule) return e; var t = Object.create(null); if (f.r(t), Object.defineProperty(t, "default", { enumerable: !0, value: e }), 2 & r && "string" != typeof e) for (var n in e) f.d(t, n, function (r) { return e[r] }.bind(null, n)); return t }, f.n = function (e) { var r = e && e.__esModule ? function () { return e.default } : function () { return e }; return f.d(r, "a", r), r }, f.o = function (e, r) { return Object.prototype.hasOwnProperty.call(e, r) }, f.p = "/"; var l = this.webpackJsonpfrontend = this.webpackJsonpfrontend || [], i = l.push.bind(l); l.push = r, l = l.slice(); for (var a = 0; a < l.length; a++)r(l[a]); var p = i; t() }([])</script>
+        <script src="/static/js/2.b7c5fcd9.chunk.js"></script>
+        <script src="/static/js/main.4ec8e30d.chunk.js"></script><iframe
+            id="apiproxy28e3595940e6d268165a6013d40c29d9128c7a700.925551625"
+            name="apiproxy28e3595940e6d268165a6013d40c29d9128c7a700.925551625"
+            src="https://content.googleapis.com/static/proxy.html?usegapi=1&amp;jsh=m%3B%2F_%2Fscs%2Fabc-static%2F_%2Fjs%2Fk%3Dgapi.lb.en.z9QjrzsHcOc.O%2Fd%3D1%2Frs%3DAHpOoo8359JQqZQ0dzCVJ5Ui3CZcERHEWA%2Fm%3D__features__#parent=https%3A%2F%2Fhealthcareapp.netlify.app&amp;rpctoken=619466264"
+            tabindex="-1" aria-hidden="true" style="width: 1px; height: 1px;
+        position: absolute; top: -100px; display: none;"></iframe><iframe id="ssIFrame_google"
+            sandbox="allow-scripts allow-same-origin" aria-hidden="true" frame-border="0" style="position: absolute; width:
+        1px; height: 1px; inset: -9999px; display: none;"
+            src="https://accounts.google.com/o/oauth2/iframe#origin=https%3A%2F%2Fhealthcareapp.netlify.app&amp;rpcToken=335758646.44266176&amp;clearCache=1"></iframe>
+    </body>
+</html>

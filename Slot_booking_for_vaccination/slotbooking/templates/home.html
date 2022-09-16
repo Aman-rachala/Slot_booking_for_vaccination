@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="d-flex flex-md-row flex-column justify-content-around
+                align-items-center my-5">
+    <div class="card my-3" style="width:
+                    18rem;"><img
+            src="https://static.vecteezy.com/system/resources/previews/004/797/854/non_2x/illustration-of-cute-male-doctor-with-stethoscope-kawaii-cartoon-character-design-vector.jpg"
+            class="card-img-top" alt="..." height="240">
+        <div class="card-body"><a class="btn btn-primary
+                            justify-content-center w-100" href={% url 'hlogin' %}>Login
+                As A Hospital</a></div>
+    </div>
+    <div class="card my-3" style="width:
+    18rem;"><img
+{% comment %} src="https://png.pngitem.com/pimgs/s/80-800139_users-icon-font-awesome-hd-png-download.png" {% endcomment %}
+{% comment %}src="https://cdn.vectorstock.com/i/1000x1000/64/86/user-account-circle-glyph-icon-vector-28806486.webp"{% endcomment %}
+
+src = "https://thumbs.dreamstime.com/b/admin-icon-white-background-simple-element-illustration-strategy-concept-isolated-editable-logo-symbol-design-can-be-use-141672744.jpg" 
+
+class="card-img-top" alt="..." height="240">
+<div class="card-body"><a class="btn btn-primary
+            justify-content-center w-100" href={% url 'admin' %}>Login
+As An Admin</a></div>
+</div>
+    <div class="card my-3" style="width: 18rem;"><img
+            src="https://healthcareapp.netlify.app/static/media/patientlogin.c45f33b8.png" class="card-img-top"
+            alt="..." height="240">
+        <div class="card-body">
+            {% comment %} <button type="button" class="btn
+                            btn-primary justify-content-center w-100 btn
+                            btn-primary">Login As A Patient</button> {% endcomment %}
+                            <a class="btn btn-primary
+                            justify-content-center w-100" href={% url 'user' %}>Login As A Patient</a></div>
+        </div>
+    </div>
+</div>
+{% endblock body %}
